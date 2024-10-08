@@ -14,6 +14,7 @@ with DAG(
         task_id='poll_spacedevs_api_sensor',
         http_conn_id='thespacedevs_dev',
         endpoint='/launch/upcoming/',
+        mode='reschedule',
     )
 
     is_launched_scheduled_for_today_operator = EmptyOperator(
@@ -25,14 +26,12 @@ with DAG(
     )
 
     load_from_cloud_storage_bucket_to_bigquery_operator = EmptyOperator(
-        task_id='load_from_cloud_strorage_bucket_to_bigquery_operator',
+        task_id='load_from_cloud_storage_bucket_to_bigquery_operator',
     )
 
     load_from_cloud_storage_bucket_to_postgres_operator = EmptyOperator(
         task_id='load_from_cloud_storage_bucket_to_postgres_operator',
     )
-
-
 
     poll_upcoming_launches_sensor >> is_launched_scheduled_for_today_operator \
     >> fetch_recent_launches_and_persist_in_cloud_storage_bucket_operator \
