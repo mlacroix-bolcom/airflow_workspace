@@ -6,7 +6,7 @@ logs/
 # C extensions
 *.so
 
-/.idea/
+.idea/**
 private
 
 # Distribution / packaging
